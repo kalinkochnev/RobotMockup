@@ -1,8 +1,10 @@
-public class Coord {
-    double x;
-    double y;
+package dev.kalink.robotmockup.geometry;
 
-    Coord(double x, double y) {
+public class Coord {
+    private double x;
+    private double y;
+
+    public Coord(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -25,27 +27,27 @@ public class Coord {
 
     public static double slope(Coord a, Coord b) {
         double diff_y = a.y - b.y;
-        double diff_x = a.y - b.x;
+        double diff_x = a.x - b.x;
 
         return diff_y / diff_x;
     }
 
-    public double distance(Coord other_pt) {
-        double x_distance = Math.pow(other_pt.x - this.x, 2);
-        double y_distance = Math.pow(other_pt.y - this.y, 2);
+    public double distance(Coord b) {
+        double x_distance = Math.pow(b.x - this.x, 2);
+        double y_distance = Math.pow(b.y - this.y, 2);
 
         return Math.sqrt(x_distance + y_distance);
     }
 
-    public Coord midpoint(Coord other_pt) {
-        double x_midpt = (this.x + other_pt.x) / 2;
-        double y_midpt = (this.y + other_pt.y) / 2;
+    public Coord midpoint(Coord b) {
+        double x_midpt = (this.x + b.x) / 2;
+        double y_midpt = (this.y + b.y) / 2;
 
         return new Coord(x_midpt, y_midpt);
     }
 
-    public boolean isEqual(Coord pointb) {
-        return (this.x == pointb.x) && (this.y == pointb.y);
+    public boolean isEqual(Coord b) {
+        return (this.x == b.x) && (this.y == b.y);
     }
 
     public boolean isCollinear(Coord a, Coord b) {

@@ -1,3 +1,5 @@
+package dev.kalink.robotmockup;
+
 public class Robot {
 
     private double xpos;
