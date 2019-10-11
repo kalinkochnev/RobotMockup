@@ -26,8 +26,8 @@ public class LineSegment extends Line {
         return in_x_bounds && in_y_bounds;
     }
 
-    static boolean coordOnSegment(Coord A) {
-
+    public double distance() {
+        return pt1.distance(pt2);
     }
 
 

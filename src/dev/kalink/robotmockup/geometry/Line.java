@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
-    Coord pt1;
-    Coord pt2;
+    protected Coord pt1;
+    protected Coord pt2;
 
     Line(Coord a, Coord b) {
         this.pt1 = a;

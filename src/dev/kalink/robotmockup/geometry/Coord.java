@@ -53,5 +53,17 @@ public class Coord {
     public boolean isCollinear(Coord a, Coord b) {
         return slope(a, b) == slope(this, b) && slope(a, b) == slope(this, a);
     }
+
+    double distFromLine(LineSegment line) {
+        double segment_dist = line.distance();
+        double dist_a = line.pt1.distance(this);
+        double dist_b = line.pt2.distance(this);
+
+        // Calculates angle between line seg and seg "a"
+        double angle_theta = Math.acos((Math.pow(dist_b, 2) - Math.pow(dist_a, 2) - Math.pow(segment_dist, 2)) / -2 * dist_a * dist_b);
+        // calculate distance from point to line
+        return dist_a * Math.sin(angle_theta);
+
+    }
 }
 

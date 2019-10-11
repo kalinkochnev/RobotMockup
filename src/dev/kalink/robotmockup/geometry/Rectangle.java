@@ -11,12 +11,5 @@ public class Rectangle {
         return new Coord[]{top.pt1, top.pt2, bottom.pt2, bottom.pt1};
     }
 
-    public boolean isRectangleToching(Rectangle a) {
-
-    }
-
-    public boolean coordOnSide(Coord a) {
-
-    }
 
 }
