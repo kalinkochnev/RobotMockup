@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MockupGoTo.iml" filepath="$PROJECT_DIR$/MockupGoTo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VirtualRobotics.iml" filepath="$PROJECT_DIR$/VirtualRobotics.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package dev.kalink.robotmockup.geometry;
+package dev.kalink.game.geometry;
 
 public class Circle {
     private double radius;

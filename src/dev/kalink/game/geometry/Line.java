@@ -1,4 +1,4 @@
-package dev.kalink.robotmockup.geometry;
+package dev.kalink.game.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,10 @@ public class Line {
     //WILL NOT CHECK IF LINE IS VERTICAL
     double getYIntercept() {
         return pt1.get_ycor() - getSlope() * pt1.get_xcor();
+    }
+
+    public Coord[] getPoints() {
+        return new Coord[]{pt1, pt2};
     }
 
     boolean isParallel(Line other_ln) {

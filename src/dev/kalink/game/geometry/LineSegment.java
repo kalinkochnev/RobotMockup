@@ -1,6 +1,6 @@
-package dev.kalink.robotmockup.geometry;
+package dev.kalink.game.geometry;
 
-public class LineSegment extends Line {
+public class LineSegment extends Line implements Comparable<LineSegment>{
     private double length;
 
     LineSegment(Coord a, Coord b) {
@@ -26,9 +26,14 @@ public class LineSegment extends Line {
         return in_x_bounds && in_y_bounds;
     }
 
-    public double distance() {
-        return pt1.distance(pt2);
+    @Override
+    public int compareTo(LineSegment lineSegment) {
+        if (this.length > lineSegment.length) {
+            return 1;
+        } else if (this.length < lineSegment.length) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
-
-
 }
