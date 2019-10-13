@@ -7,7 +7,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class CoordTest {
 
     @Test
-    void slope() {
+    void testIsCollinear() {
+        Coord a = new Coord(0, 0);
+        Coord b = new Coord(1, 10);
+        Coord c = new Coord(2, 20);
+        assertTrue(a.isCollinear(b, c));
+
+        a = new Coord(0, 0);
+        b = new Coord(1, 10);
+        c = new Coord(3, -10);
+        assertFalse(a.isCollinear(b, c));
+    }
+
+    @Test
+    void testSlope() {
         Coord a = new Coord(1, 10);
         Coord b = new Coord(0, 0);
         assertEquals(10, Coord.slope(a, b));
@@ -18,84 +31,15 @@ class CoordTest {
     }
 
     @Test
-    void distance() {
-    }
-
-    @Test
-    void midpoint() {
-    }
-
-    @Test
-    void isEqual() {
-    }
-
-    @Test
-    void isCollinear() {
-    }
-
-    @Test
-    void intersect() {
-
-    }
-
-    @Test
-    void testPointDistanceFromLineInBounds() {
-        Coord pt_a = new Coord(0, 0);
+    void testPointDistanceFromLine() {
+        Coord[] cases = {new Coord(-2, -10), new Coord(-2, 5), new Coord(-2, 11), new Coord(4, 11), new Coord(9, 11), new Coord(9, 5), new Coord(4, -2), new Coord(4, 5), new Coord(2, 8.833333)};
         LineSegment new_line = new LineSegment(new Coord(1, 10), new Coord(7, 3));
-        double calculated_value = pt_a.distFromLineSegment(new_line);
-        //Answer done by hand is 7.267170337
-        double correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
+        for (Coord coord : cases) {
+            double calculated_value = coord.distFromLineSegment(new_line);
+            double correct_formula = Math.abs((new_line.pt1.get_ycor() - new_line.pt2.get_ycor()) * coord.get_xcor() - (new_line.pt1.get_xcor() - new_line.pt2.get_xcor()) * coord.get_ycor() + new_line.pt1.get_xcor() * new_line.pt2.get_ycor() - new_line.pt1.get_ycor() * new_line.pt2.get_xcor()) / new_line.getLength();
+            assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
+        }
 
-    }
-
-    @Test
-    void testPointDistanceFromLineOutOfBounds() {
-        Coord pt_a = new Coord(-2, -10);
-        LineSegment new_line = new LineSegment(new Coord(1, 10), new Coord(7, 3));
-        double calculated_value = pt_a.distFromLineSegment(new_line);
-        double correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(-2, 5);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(-2, 11);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(4, 11);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(9, 11);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(9, 5);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(9, -2);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(4, -2);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
-
-        pt_a = new Coord(4, 5);
-        calculated_value = pt_a.distFromLineSegment(new_line);
-        correct_formula = pt_a.testMath(new_line);
-        assertEquals(Math.round(correct_formula * Math.pow(10, 7)) / Math.pow(10, 7), Math.round(calculated_value * Math.pow(10, 7)) / Math.pow(10, 7));
     }
 
     @Test

@@ -15,11 +15,24 @@ public class Rectangle {
         return new LineSegment[]{top, bottom, left, right};
     }
 
-    public boolean lineIntersects(LineSegment line) {
+    public int numLineSegsIntersect(LineSegment line) {
+        int intersect_count = 0;
         for (LineSegment side : getEdges()) {
-            
+            if (LineSegment.segmentsIntersect(side, line)) {
+                intersect_count++;
+            }
         }
+        return intersect_count;
     }
 
+    public int numLinesIntersect(Line line) {
+        int intersect_count = 0;
+        for (Line side : getEdges()) {
+/*            if (LineSegment.segmentsIntersect(side, line)) {
+                intersect_count++;
+            }*/
+        }
+        return intersect_count;
+    }
 
 }

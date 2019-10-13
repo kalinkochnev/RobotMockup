@@ -18,12 +18,19 @@ public class LineSegment extends Line implements Comparable<LineSegment>{
         return length;
     }
 
+    // TODO Probably a better way, too lazy to fix
+    public boolean onSegment(Coord a) {
+        boolean in_x_bounds_1 = a.get_xcor() >= pt1.get_xcor() && a.get_xcor() <= pt2.get_xcor();
+        boolean in_x_bounds_2 = a.get_xcor() <= pt1.get_xcor() && a.get_xcor() >= pt2.get_xcor();
+        boolean in_y_bounds_1 = a.get_ycor() >= pt1.get_ycor() && a.get_ycor() <= pt2.get_ycor();
+        boolean in_y_bounds_2 = a.get_ycor() <= pt1.get_ycor() && a.get_ycor() >= pt2.get_ycor();
+
+        return (in_x_bounds_1 || in_x_bounds_2) && (in_y_bounds_1 || in_y_bounds_2);
+    }
+
     static boolean segmentsIntersect(LineSegment A, LineSegment B) {
         Coord intersect = intersection(A, B);
-        boolean in_x_bounds = intersect.get_xcor() >= A.pt1.get_xcor() && intersect.get_xcor() <= A.pt2.get_xcor();
-        boolean in_y_bounds = intersect.get_ycor() >= A.pt1.get_ycor() && intersect.get_ycor() <= A.pt2.get_ycor();
-
-        return in_x_bounds && in_y_bounds;
+        return A.onSegment(intersect) && B.onSegment(intersect);
     }
 
     @Override

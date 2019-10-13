@@ -48,7 +48,7 @@ public class Coord {
         return new Coord(x_midpt, y_midpt);
     }
 
-    public boolean isEqual(Coord b) {
+    public boolean equals(Coord b) {
         return (this.x == b.x) && (this.y == b.y);
     }
 
@@ -68,6 +68,7 @@ public class Coord {
             double angle_theta = Math.acos((Math.pow(dist_b, 2) - Math.pow(dist_a, 2) - Math.pow(segment_dist, 2)) / (-2 * dist_a * segment_dist));
             // calculate distance from point to line (aka height of triangle made)
             return dist_a * Math.sin(angle_theta);
+            //Actual formula
 
     }
 
@@ -99,10 +100,5 @@ public class Coord {
         return output;
     }
 
-    public double testMath(LineSegment a) {
-        double correct_formula = Math.abs((a.pt1.y - a.pt2.y)*x - (a.pt1.x-a.pt2.x)*y + a.pt1.x*a.pt2.y - a.pt1.y*a.pt2.x)/a.getLength();
-        return correct_formula;
-
-    }
 }
 

@@ -14,10 +14,7 @@ public class Line {
 
     //WILL NOT CHECK IF LINE IS VERTICAL
     double getSlope() {
-        double diff_x = pt1.get_xcor() - pt2.get_xcor();
-        double diff_y = pt1.get_ycor() - pt2.get_ycor();
-
-        return diff_x / diff_y;
+        return Coord.slope(pt1, pt2);
     }
 
     //WILL NOT CHECK IF LINE IS VERTICAL
@@ -32,45 +29,35 @@ public class Line {
     boolean isParallel(Line other_ln) {
         if (isUndefined(this) && isUndefined(other_ln) && pt1.get_xcor() != other_ln.pt1.get_xcor()) {
             return true;
-        } else if (hasNoSlope(this) && hasNoSlope(other_ln)) {
+        } else if (isHorizontal(this) && isHorizontal(other_ln)) {
             return true;
         } else {
             return other_ln.getSlope() == this.getSlope() && other_ln.getYIntercept() != this.getYIntercept();
         }
     }
 
-    boolean isOn(Coord a) {
-        return ((this.getSlope() * a.get_xcor() + this.getYIntercept()) == a.get_ycor());
-    }
-
     static boolean isUndefined(Line a) {
         return a.pt1.get_xcor() == a.pt2.get_xcor();
     }
 
-    static boolean hasNoSlope(Line a) {
+    static boolean isHorizontal(Line a) {
         return a.pt1.get_ycor() == a.pt2.get_ycor();
     }
 
-    static Line[] getUndefinedLines(Line[] lines) {
-        List<Line> undefined = new ArrayList<>();
-        for (Line line : lines) {
-            if (Line.isUndefined(line)) {
-                undefined.add(line);
-            }
-        }
-
-        return undefined.toArray(new Line[0]);
-
+    static boolean linesIntersect(Line A, Line B) {
+        return A.isParallel(B) && (isUndefined(A) || isHorizontal(A));
     }
 
-    // Make sure to test that the lines are not parallel before using
+    // WILL NOT CHECK IF LINES INTERSECT
     static Coord intersection(Line A, Line B) {
-        if ((A.isParallel(B) && (isUndefined(A) || hasNoSlope(A)))) {
+        if ((A.isParallel(B) && (isUndefined(A) || isHorizontal(A)))) {
             throw new RuntimeException("Lines do not intersect");
-        } else if (isUndefined(A) || isUndefined(B)) {
-            Line undefined = getUndefinedLines(new Line[]{A, B})[0];
-            double y_value = A.getSlope() * undefined.pt1.get_xcor() + A.getYIntercept();
-            return new Coord(undefined.pt1.get_xcor(), y_value);
+        } else if (isUndefined(A)) {
+            double y_value = B.getSlope() * A.pt1.get_xcor() + B.getYIntercept();
+            return new Coord(A.pt1.get_xcor(), y_value);
+        } else if (isUndefined(B)) {
+            double y_value = A.getSlope() * B.pt1.get_xcor() + A.getYIntercept();
+            return new Coord(B.pt1.get_xcor(), y_value);
         } else {
             double x = (A.getYIntercept() - B.getYIntercept()) / (B.getSlope() - A.getSlope());
             double y = B.getSlope() * (x) + B.getYIntercept();
@@ -78,7 +65,7 @@ public class Line {
         }
     }
 
-    public boolean coordOnLine(Coord A) {
+    public boolean onLine(Coord A) {
         if (isUndefined(this)) {
             return A.get_xcor() == pt1.get_xcor();
         } else {
