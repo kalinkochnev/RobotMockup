@@ -1,5 +1,7 @@
 package dev.kalink.game.geometry;
 
+import dev.kalink.game.pathfinding.Edge;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,14 @@ public class Line {
     Line(Coord a, Coord b) {
         this.pt1 = a;
         this.pt2 = b;
+    }
+
+    public Coord getPt1() {
+        return pt1;
+    }
+
+    public Coord getPt2() {
+        return pt2;
     }
 
     //WILL NOT CHECK IF LINE IS VERTICAL
@@ -73,6 +83,8 @@ public class Line {
             return A.get_ycor() == expected_y;
         }
     }
+
+
 
 
 }

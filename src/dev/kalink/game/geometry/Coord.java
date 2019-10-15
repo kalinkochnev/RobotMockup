@@ -1,5 +1,7 @@
 package dev.kalink.game.geometry;
 
+import dev.kalink.game.pathfinding.Node;
+
 import java.util.Arrays;
 
 public class Coord {
@@ -100,5 +102,9 @@ public class Coord {
         return output;
     }
 
+    public Node toNode() {
+        Node node = new Node();
+        node.position = this;
+    }
 }
 
