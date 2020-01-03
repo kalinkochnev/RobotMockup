@@ -1,4 +1,4 @@
-package dev.kalink.game.geometry;
+package dev.kalink.game.Navigation.Geometry;
 
 public class Rectangle {
     private Coord a;
@@ -6,12 +6,13 @@ public class Rectangle {
     private Coord c;
     private Coord d;
 
-    Rectangle(Coord[] points) {
+    public Rectangle(Coord[] points) {
         this.a = points[0];
         this.b = points[1];
         this.c = points[2];
         this.d = points[3];
     }
+
 
     // In clockwise order
     public Coord[] getCorners() {
@@ -21,7 +22,7 @@ public class Rectangle {
     public LineSegment[] getEdges() {
         LineSegment[] sides = new LineSegment[4];
         Coord[] corners = getCorners();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             sides[i] = new LineSegment(corners[i], corners[i+1]);
         }
         sides[3] = new LineSegment(corners[0], corners[3]);
@@ -50,12 +51,26 @@ public class Rectangle {
 
     public Rectangle scaleRectangleInPlace(Rectangle A, double factor) {
         Coord[] points = getCorners();
-        for (Coord point : points) {
+        for (int i = 0; i < 4; i++) {
+            Coord point = points[i];
             double x = point.get_xcor() * factor;
             double y = point.get_ycor() * factor;
-            point = new Coord(x - ((x-point.get_xcor())/2), y - ((y-point.get_ycor())/2));
+            points[i] = new Coord(x - ((x-point.get_xcor())/2), y - ((y-point.get_ycor())/2));
         }
         return new Rectangle(points);
 
+    }
+    public boolean coordInRectangle(Coord pt) {
+        boolean in_x_bounds = pt.get_xcor() < b.get_xcor() && pt.get_xcor() > a.get_xcor();
+        boolean in_y_bounds = pt.get_ycor() < a.get_ycor() && pt.get_ycor() > c.get_ycor();
+        return in_x_bounds && in_y_bounds;
+    }
+
+    public String toString() {
+        String output = "";
+        for (Coord coord : getCorners()) {
+            output += coord.toString() + "\n";
+        }
+        return output;
     }
 }

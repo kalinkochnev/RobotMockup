@@ -1,6 +1,4 @@
-package dev.kalink.game.geometry;
-
-import dev.kalink.game.pathfinding.Edge;
+package dev.kalink.game.Navigation.Geometry;
 
 public class LineSegment extends Line implements Comparable<LineSegment>{
     private double length;
@@ -37,7 +35,7 @@ public class LineSegment extends Line implements Comparable<LineSegment>{
 
     static boolean lineIntersectsSeg(LineSegment A, Line B) {
         Coord intersect = intersection(A, B);
-        return A.onSegment(intersect) && B.onLine(intersect);
+        return A.onSegment(intersect) && B.coordOnLine(intersect);
     }
 
     @Override
@@ -49,13 +47,5 @@ public class LineSegment extends Line implements Comparable<LineSegment>{
         } else {
             return 0;
         }
-    }
-
-    public Edge toPathElements() {
-        Edge segment = new Edge();
-        segment.weight = length;
-        segment.start.position = pt1;
-        segment.end.position = pt2;
-        return segment;
     }
 }
